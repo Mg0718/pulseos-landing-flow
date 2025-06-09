@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 
 interface Particle {
@@ -24,6 +24,16 @@ interface FloatingShape {
   type: 'circle' | 'triangle' | 'square';
 }
 
+interface Theme {
+  particleCount: number;
+  particleTypes: readonly ('cosmic' | 'stream' | 'network' | 'floating')[];
+  colors: string[];
+  speed: number;
+  size: { min: number; max: number };
+  opacity: { min: number; max: number };
+  gradient: string;
+}
+
 interface BackgroundProps {
   section: string;
 }
@@ -36,29 +46,27 @@ const InteractiveBackground = ({ section }: BackgroundProps) => {
   const [currentTheme, setCurrentTheme] = useState('hero');
   const animationRef = useRef<number>();
 
-  const themes = {
+  const themes = useMemo(() => ({
     hero: {
-      colors: ['#8b5cf6', '#06b6d4', '#a855f7', '#c084fc'],
-      gradient: 'radial-gradient(ellipse at center, rgba(139, 92, 246, 0.15) 0%, rgba(6, 182, 212, 0.1) 50%, transparent 70%)',
-      particleCount: 80
+      particleCount: 100,
+      particleTypes: ['cosmic', 'stream', 'network', 'floating'] as const,
+      colors: ['#8B5CF6', '#EC4899', '#3B82F6', '#10B981'],
+      speed: 0.5,
+      size: { min: 2, max: 6 },
+      opacity: { min: 0.1, max: 0.8 },
+      gradient: 'radial-gradient(ellipse at center, rgba(139, 92, 246, 0.15) 0%, rgba(6, 182, 212, 0.1) 50%, transparent 70%)'
     },
-    chaos: {
-      colors: ['#3b82f6', '#06b6d4', '#0ea5e9', '#38bdf8'],
-      gradient: 'radial-gradient(ellipse at center, rgba(59, 130, 246, 0.15) 0%, rgba(6, 182, 212, 0.1) 50%, transparent 70%)',
-      particleCount: 100
+    features: {
+      particleCount: 80,
+      particleTypes: ['network', 'floating'] as const,
+      colors: ['#8B5CF6', '#EC4899', '#3B82F6'],
+      speed: 0.3,
+      size: { min: 1, max: 4 },
+      opacity: { min: 0.05, max: 0.6 },
+      gradient: 'radial-gradient(ellipse at center, rgba(139, 92, 246, 0.15) 0%, rgba(6, 182, 212, 0.1) 50%, transparent 70%)'
     },
-    solution: {
-      colors: ['#10b981', '#06d6a0', '#059669', '#34d399'],
-      gradient: 'radial-gradient(ellipse at center, rgba(16, 185, 129, 0.15) 0%, rgba(6, 214, 160, 0.1) 50%, transparent 70%)',
-      particleCount: 75
-    },
-    modular: {
-      colors: ['#f59e0b', '#fb923c', '#f97316', '#fbbf24'],
-      gradient: 'radial-gradient(ellipse at center, rgba(245, 158, 11, 0.15) 0%, rgba(251, 146, 60, 0.1) 50%, transparent 70%)',
-      particleCount: 90
-    },
-    // ... keep existing code (other theme definitions)
-  };
+    // ... rest of themes object ...
+  }), []); // Empty dependency array since themes are static
 
   useEffect(() => {
     setCurrentTheme(section);
@@ -262,7 +270,7 @@ const InteractiveBackground = ({ section }: BackgroundProps) => {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [currentTheme]);
+  }, [currentTheme, themes]);
 
   const theme = themes[currentTheme as keyof typeof themes] || themes.hero;
 
