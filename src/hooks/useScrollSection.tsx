@@ -7,7 +7,7 @@ export const useScrollSection = () => {
   useEffect(() => {
     const handleScroll = () => {
       const sections = ['hero', 'chaos', 'solution', 'modular', 'works', 'innovation', 'testimonials', 'teams', 'global', 'cta'];
-      const scrollPosition = window.scrollY + window.innerHeight / 2;
+      const scrollPosition = window.scrollY + window.innerHeight / 3;
 
       for (const section of sections) {
         const element = document.getElementById(section);
@@ -21,7 +21,7 @@ export const useScrollSection = () => {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll(); // Check initial position
 
     return () => window.removeEventListener('scroll', handleScroll);

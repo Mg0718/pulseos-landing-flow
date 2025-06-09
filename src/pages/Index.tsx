@@ -6,6 +6,9 @@ import HeroSection from '@/components/HeroSection';
 import ChaosSection from '@/components/ChaosSection';
 import SolutionSection from '@/components/SolutionSection';
 import ModularSection from '@/components/ModularSection';
+import TechnologySection from '@/components/TechnologySection';
+import IntegrationsSection from '@/components/IntegrationsSection';
+import ResourcesSection from '@/components/ResourcesSection';
 import HowItWorksSection from '@/components/HowItWorksSection';
 import InnovationSection from '@/components/InnovationSection';
 import TestimonialsSection from '@/components/TestimonialsSection';
@@ -27,13 +30,13 @@ const Index = () => {
           <HeroSection />
         </div>
         <div id="chaos">
-          <ChaosSection />
+          <TechnologySection />
         </div>
         <div id="solution">
-          <SolutionSection />
+          <IntegrationsSection />
         </div>
         <div id="modular">
-          <ModularSection />
+          <ResourcesSection />
         </div>
         <div id="works">
           <HowItWorksSection />

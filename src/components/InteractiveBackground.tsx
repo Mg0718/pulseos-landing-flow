@@ -27,17 +27,41 @@ const InteractiveBackground = ({ section }: BackgroundProps) => {
       colors: ['#8b5cf6', '#06b6d4', '#a855f7'],
       gradient: 'radial-gradient(ellipse at center, rgba(139, 92, 246, 0.15) 0%, rgba(6, 182, 212, 0.1) 50%, transparent 70%)'
     },
-    technology: {
+    chaos: {
       colors: ['#3b82f6', '#06b6d4', '#0ea5e9'],
       gradient: 'radial-gradient(ellipse at center, rgba(59, 130, 246, 0.15) 0%, rgba(6, 182, 212, 0.1) 50%, transparent 70%)'
     },
-    integrations: {
+    solution: {
       colors: ['#10b981', '#06d6a0', '#059669'],
       gradient: 'radial-gradient(ellipse at center, rgba(16, 185, 129, 0.15) 0%, rgba(6, 214, 160, 0.1) 50%, transparent 70%)'
     },
-    resources: {
+    modular: {
       colors: ['#f59e0b', '#fb923c', '#f97316'],
       gradient: 'radial-gradient(ellipse at center, rgba(245, 158, 11, 0.15) 0%, rgba(251, 146, 60, 0.1) 50%, transparent 70%)'
+    },
+    works: {
+      colors: ['#ec4899', '#f472b6', '#be185d'],
+      gradient: 'radial-gradient(ellipse at center, rgba(236, 72, 153, 0.15) 0%, rgba(244, 114, 182, 0.1) 50%, transparent 70%)'
+    },
+    innovation: {
+      colors: ['#8b5cf6', '#a78bfa', '#7c3aed'],
+      gradient: 'radial-gradient(ellipse at center, rgba(139, 92, 246, 0.15) 0%, rgba(167, 139, 250, 0.1) 50%, transparent 70%)'
+    },
+    testimonials: {
+      colors: ['#06b6d4', '#67e8f9', '#0891b2'],
+      gradient: 'radial-gradient(ellipse at center, rgba(6, 182, 212, 0.15) 0%, rgba(103, 232, 249, 0.1) 50%, transparent 70%)'
+    },
+    teams: {
+      colors: ['#10b981', '#34d399', '#047857'],
+      gradient: 'radial-gradient(ellipse at center, rgba(16, 185, 129, 0.15) 0%, rgba(52, 211, 153, 0.1) 50%, transparent 70%)'
+    },
+    global: {
+      colors: ['#3b82f6', '#60a5fa', '#1d4ed8'],
+      gradient: 'radial-gradient(ellipse at center, rgba(59, 130, 246, 0.15) 0%, rgba(96, 165, 250, 0.1) 50%, transparent 70%)'
+    },
+    cta: {
+      colors: ['#8b5cf6', '#06b6d4', '#a855f7'],
+      gradient: 'radial-gradient(ellipse at center, rgba(139, 92, 246, 0.15) 0%, rgba(6, 182, 212, 0.1) 50%, transparent 70%)'
     }
   };
 

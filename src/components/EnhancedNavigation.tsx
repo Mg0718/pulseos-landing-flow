@@ -12,10 +12,10 @@ const EnhancedNavigation = ({ activeSection, onSectionChange }: NavigationProps)
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 
   const navItems = [
-    { id: 'overview', label: 'Overview' },
-    { id: 'technology', label: 'Technology' },
-    { id: 'integrations', label: 'Integrations' },
-    { id: 'resources', label: 'Resources' }
+    { id: 'hero', label: 'Overview' },
+    { id: 'chaos', label: 'Technology' },
+    { id: 'solution', label: 'Integrations' },
+    { id: 'modular', label: 'Resources' }
   ];
 
   useEffect(() => {
@@ -31,14 +31,17 @@ const EnhancedNavigation = ({ activeSection, onSectionChange }: NavigationProps)
     onSectionChange(sectionId);
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
     }
   };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
       <div 
-        className="bg-background/60 backdrop-blur-xl border-b border-border/20 transition-all duration-300"
+        className="bg-background/60 backdrop-blur-xl border-b border-border/20 transition-all duration-500"
         style={{
           backdropFilter: 'blur(20px) saturate(180%)',
           background: hoveredItem ? 'rgba(15, 15, 23, 0.8)' : 'rgba(15, 15, 23, 0.6)'
@@ -63,7 +66,7 @@ const EnhancedNavigation = ({ activeSection, onSectionChange }: NavigationProps)
                 onClick={() => handleNavClick(item.id)}
                 onMouseEnter={() => setHoveredItem(item.id)}
                 onMouseLeave={() => setHoveredItem(null)}
-                className={`relative px-4 py-2 rounded-lg transition-all duration-300 group ${
+                className={`relative px-4 py-2 rounded-lg transition-all duration-500 group ${
                   activeSection === item.id 
                     ? 'text-purple-300 bg-purple-500/10' 
                     : 'text-muted-foreground hover:text-foreground'
@@ -79,7 +82,7 @@ const EnhancedNavigation = ({ activeSection, onSectionChange }: NavigationProps)
                   />
                 )}
                 {activeSection === item.id && (
-                  <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-purple-400 rounded-full" />
+                  <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-purple-400 rounded-full transition-all duration-300" />
                 )}
               </button>
             ))}
