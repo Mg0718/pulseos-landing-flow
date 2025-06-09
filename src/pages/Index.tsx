@@ -1,7 +1,7 @@
 
 import React from 'react';
-import ParticleBackground from '@/components/ParticleBackground';
-import Navigation from '@/components/Navigation';
+import InteractiveBackground from '@/components/InteractiveBackground';
+import EnhancedNavigation from '@/components/EnhancedNavigation';
 import HeroSection from '@/components/HeroSection';
 import ChaosSection from '@/components/ChaosSection';
 import SolutionSection from '@/components/SolutionSection';
@@ -12,24 +12,47 @@ import TestimonialsSection from '@/components/TestimonialsSection';
 import ForTeamsSection from '@/components/ForTeamsSection';
 import GlobalSection from '@/components/GlobalSection';
 import FinalCTASection from '@/components/FinalCTASection';
+import { useScrollSection } from '@/hooks/useScrollSection';
 
 const Index = () => {
+  const { activeSection, setActiveSection } = useScrollSection();
+
   return (
     <div className="relative min-h-screen overflow-hidden">
-      <ParticleBackground />
-      <Navigation />
+      <InteractiveBackground section={activeSection} />
+      <EnhancedNavigation activeSection={activeSection} onSectionChange={setActiveSection} />
       
       <main className="relative z-10">
-        <HeroSection />
-        <ChaosSection />
-        <SolutionSection />
-        <ModularSection />
-        <HowItWorksSection />
-        <InnovationSection />
-        <TestimonialsSection />
-        <ForTeamsSection />
-        <GlobalSection />
-        <FinalCTASection />
+        <div id="hero">
+          <HeroSection />
+        </div>
+        <div id="chaos">
+          <ChaosSection />
+        </div>
+        <div id="solution">
+          <SolutionSection />
+        </div>
+        <div id="modular">
+          <ModularSection />
+        </div>
+        <div id="works">
+          <HowItWorksSection />
+        </div>
+        <div id="innovation">
+          <InnovationSection />
+        </div>
+        <div id="testimonials">
+          <TestimonialsSection />
+        </div>
+        <div id="teams">
+          <ForTeamsSection />
+        </div>
+        <div id="global">
+          <GlobalSection />
+        </div>
+        <div id="cta">
+          <FinalCTASection />
+        </div>
       </main>
     </div>
   );
