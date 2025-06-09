@@ -21,11 +21,27 @@ export const useScrollSection = () => {
       }
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    // Enhanced smooth scrolling
+    const smoothScrollHandler = () => {
+      requestAnimationFrame(handleScroll);
+    };
+
+    window.addEventListener('scroll', smoothScrollHandler, { passive: true });
     handleScroll(); // Check initial position
 
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', smoothScrollHandler);
   }, []);
 
-  return { activeSection, setActiveSection };
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+      setActiveSection(sectionId);
+    }
+  };
+
+  return { activeSection, setActiveSection: scrollToSection };
 };
