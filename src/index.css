@@ -27,57 +27,96 @@
     --ring: 139 92 246;
     --radius: 0.75rem;
   }
+
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    :root {
+      --foreground: 255 255 255;
+      --background: 0 0 0;
+      --muted-foreground: 200 200 200;
+    }
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 }
 
 @layer base {
   * {
     @apply border-border;
   }
+  
   body {
     @apply bg-background text-foreground font-sans;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     line-height: 1.6;
+    scroll-behavior: smooth;
   }
   
   html {
     scroll-behavior: smooth;
   }
 
-  /* Enhanced glassmorphism */
+  /* Focus visible for better accessibility */
+  *:focus-visible {
+    @apply outline-2 outline-primary outline-offset-2;
+  }
+
+  /* Skip link for screen readers */
+  .skip-link {
+    position: absolute;
+    top: -40px;
+    left: 6px;
+    background: rgb(var(--primary));
+    color: rgb(var(--primary-foreground));
+    padding: 8px;
+    text-decoration: none;
+    border-radius: 4px;
+    z-index: 9999;
+  }
+
+  .skip-link:focus {
+    top: 6px;
+  }
+
+  /* Enhanced glassmorphism with better performance */
   .glass-effect {
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(20px) saturate(180%);
     border: 1px solid rgba(255, 255, 255, 0.1);
+    will-change: transform;
   }
 
-  /* Better text contrast */
+  /* Better text contrast with improved readability */
   .text-high-contrast {
     color: rgb(248 250 252);
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   }
 
-  /* Enhanced spacing utilities */
-  .space-y-8 > * + * {
-    margin-top: 2rem;
-  }
-  
-  .space-y-12 > * + * {
-    margin-top: 3rem;
-  }
-
-  /* Improved hover effects */
+  /* Performance optimized animations */
   .hover-glow {
     transition: all 0.3s ease;
+    will-change: transform, box-shadow;
   }
   
   .hover-glow:hover {
     box-shadow: 0 0 30px rgba(139, 92, 246, 0.3);
-    transform: translateY(-2px);
+    transform: translateY(-2px) translateZ(0);
   }
 
-  /* Enhanced gradients */
+  /* Enhanced gradients with better GPU performance */
   .gradient-border {
     position: relative;
+    isolation: isolate;
   }
   
   .gradient-border::before {
@@ -88,15 +127,17 @@
     background: linear-gradient(45deg, #8b5cf6, #06b6d4, #8b5cf6);
     border-radius: inherit;
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask-composite: exclude;
+    mask-composite: xor;
+    -webkit-mask-composite: xor;
   }
 
-  /* Perspective for 3D effects */
+  /* 3D perspective optimizations */
   .perspective-1000 {
     perspective: 1000px;
+    transform-style: preserve-3d;
   }
 
-  /* Custom scrollbar */
+  /* Optimized scrollbar */
   ::-webkit-scrollbar {
     width: 8px;
   }
@@ -115,30 +156,83 @@
   }
 }
 
-/* Enhanced animations */
+/* Performance optimized animations */
 @keyframes float {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  25% { transform: translateY(-10px) rotate(1deg); }
-  50% { transform: translateY(-5px) rotate(0deg); }
-  75% { transform: translateY(-15px) rotate(-1deg); }
+  0%, 100% { 
+    transform: translateY(0px) rotate(0deg) translateZ(0); 
+  }
+  25% { 
+    transform: translateY(-10px) rotate(1deg) translateZ(0); 
+  }
+  50% { 
+    transform: translateY(-5px) rotate(0deg) translateZ(0); 
+  }
+  75% { 
+    transform: translateY(-15px) rotate(-1deg) translateZ(0); 
+  }
 }
 
 @keyframes pulse-glow {
   0%, 100% { 
     box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
-    transform: scale(1);
+    transform: scale(1) translateZ(0);
   }
   50% { 
     box-shadow: 0 0 40px rgba(139, 92, 246, 0.6);
-    transform: scale(1.02);
+    transform: scale(1.02) translateZ(0);
   }
 }
 
 @keyframes shimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
+  0% { transform: translateX(-100%) translateZ(0); }
+  100% { transform: translateX(100%) translateZ(0); }
 }
 
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px) translateZ(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) translateZ(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px) translateZ(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) translateZ(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px) translateZ(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) translateZ(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateZ(0);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateZ(0);
+  }
+}
+
+/* Animation classes */
 .animate-float {
   animation: float 6s ease-in-out infinite;
 }
@@ -151,10 +245,27 @@
   animation: shimmer 2s infinite;
 }
 
-/* Improved card styles */
+.animate-fadeInUp {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-slideInLeft {
+  animation: slideInLeft 0.6s ease-out forwards;
+}
+
+.animate-slideInRight {
+  animation: slideInRight 0.6s ease-out forwards;
+}
+
+.animate-scaleIn {
+  animation: scaleIn 0.6s ease-out forwards;
+}
+
+/* Enhanced card styles with better performance */
 .enhanced-card {
   @apply bg-card/40 border border-border/30 backdrop-blur-md hover:bg-card/60 transition-all duration-500 hover:shadow-2xl;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  will-change: transform, box-shadow;
 }
 
 .enhanced-card:hover {
@@ -162,9 +273,10 @@
     0 20px 40px rgba(139, 92, 246, 0.15),
     0 0 0 1px rgba(139, 92, 246, 0.2),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transform: translateY(-4px) translateZ(0);
 }
 
-/* Better typography */
+/* Better typography with improved contrast */
 .text-balance {
   text-wrap: balance;
 }
@@ -173,7 +285,7 @@
   @apply bg-gradient-to-r from-purple-400 via-pink-300 to-cyan-200 bg-clip-text text-transparent;
 }
 
-/* Loading and transition states */
+/* Loading and transition states with GPU acceleration */
 .loading-shimmer {
   background: linear-gradient(
     90deg,
@@ -183,4 +295,24 @@
   );
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
+  will-change: background-position;
+}
+
+/* Print styles for better accessibility */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    background: white !important;
+    color: black !important;
+  }
+}
+
+/* Dark mode optimizations */
+@media (prefers-color-scheme: dark) {
+  .auto-dark {
+    filter: invert(1) hue-rotate(180deg);
+  }
 }

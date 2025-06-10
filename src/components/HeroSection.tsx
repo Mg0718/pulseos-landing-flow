@@ -1,9 +1,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import InteractiveButton from '@/components/InteractiveButton';
-import { Rocket, BookOpen, ArrowRight } from 'lucide-react';
+import { Rocket, BookOpen } from 'lucide-react';
 
 const HeroSection = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -151,32 +150,6 @@ const HeroSection = () => {
               See How It Works
             </InteractiveButton>
           </motion.div>
-        </motion.div>
-
-        {/* Quick Navigation to Modules */}
-        <motion.div
-          className="flex flex-wrap justify-center gap-4 pt-12"
-          variants={itemVariants}
-        >
-          {[
-            { name: "Manage Employees", path: "/managing-employees" },
-            { name: "Innovation Hub", path: "/innovation-hub" },
-            { name: "PulsePay", path: "/pulsepay" },
-            { name: "PulseFlow", path: "/pulseflow" }
-          ].map((module, index) => (
-            <Link key={index} to={module.path}>
-              <motion.div
-                className="group flex items-center gap-2 px-4 py-2 bg-card/20 border border-border/30 rounded-full hover:bg-card/40 transition-all duration-300"
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <span className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">
-                  {module.name}
-                </span>
-                <ArrowRight className="w-4 h-4 text-purple-400 group-hover:translate-x-1 transition-transform" />
-              </motion.div>
-            </Link>
-          ))}
         </motion.div>
       </div>
     </motion.section>

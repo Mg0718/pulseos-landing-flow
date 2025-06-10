@@ -1,6 +1,6 @@
 
 import React from 'react';
-import InteractiveBackground from '@/components/InteractiveBackground';
+import Enhanced3DBackground from '@/components/Enhanced3DBackground';
 import EnhancedNavigation from '@/components/EnhancedNavigation';
 import HeroSection from '@/components/HeroSection';
 import SocialProofSection from '@/components/SocialProofSection';
@@ -16,6 +16,8 @@ import ForTeamsSection from '@/components/ForTeamsSection';
 import GlobalSection from '@/components/GlobalSection';
 import PricingTeaserSection from '@/components/PricingTeaserSection';
 import FinalCTASection from '@/components/FinalCTASection';
+import OnboardingDemo from '@/components/OnboardingDemo';
+import ScrollReveal from '@/components/ScrollReveal';
 import { useScrollSection } from '@/hooks/useScrollSection';
 
 const Index = () => {
@@ -23,54 +25,84 @@ const Index = () => {
 
   return (
     <div className="relative min-h-screen overflow-hidden">
-      <InteractiveBackground section={activeSection} />
+      <Enhanced3DBackground />
       <EnhancedNavigation activeSection={activeSection} onSectionChange={setActiveSection} />
       
       <main className="relative z-10">
         <div id="hero">
-          <HeroSection />
-          <SocialProofSection />
+          <ScrollReveal direction="fade">
+            <HeroSection />
+          </ScrollReveal>
+          <ScrollReveal direction="up" delay={0.2}>
+            <SocialProofSection />
+          </ScrollReveal>
         </div>
         
         <div id="chaos">
-          <TechnologySection />
+          <ScrollReveal direction="left">
+            <TechnologySection />
+          </ScrollReveal>
         </div>
         
         <div id="solution">
-          <IntegrationsSection />
+          <ScrollReveal direction="right">
+            <IntegrationsSection />
+          </ScrollReveal>
         </div>
         
         <div id="modular">
-          <ResourcesSection />
-          <ProductModulesSection />
+          <ScrollReveal direction="scale" delay={0.1}>
+            <ResourcesSection />
+          </ScrollReveal>
+          <ScrollReveal direction="up" delay={0.2}>
+            <ProductModulesSection />
+          </ScrollReveal>
         </div>
         
         <div id="works">
-          <HowItWorksSection />
-          <ComparisonSection />
+          <ScrollReveal direction="fade" delay={0.1}>
+            <HowItWorksSection />
+          </ScrollReveal>
+          <ScrollReveal direction="left" delay={0.2}>
+            <ComparisonSection />
+          </ScrollReveal>
         </div>
         
         <div id="innovation">
-          <InnovationSection />
+          <ScrollReveal direction="scale">
+            <InnovationSection />
+          </ScrollReveal>
         </div>
         
         <div id="testimonials">
-          <TestimonialsSection />
+          <ScrollReveal direction="up">
+            <TestimonialsSection />
+          </ScrollReveal>
         </div>
         
         <div id="teams">
-          <ForTeamsSection />
+          <ScrollReveal direction="right">
+            <ForTeamsSection />
+          </ScrollReveal>
         </div>
         
         <div id="global">
-          <GlobalSection />
-          <PricingTeaserSection />
+          <ScrollReveal direction="left">
+            <GlobalSection />
+          </ScrollReveal>
+          <ScrollReveal direction="up" delay={0.2}>
+            <PricingTeaserSection />
+          </ScrollReveal>
         </div>
         
         <div id="cta">
-          <FinalCTASection />
+          <ScrollReveal direction="scale">
+            <FinalCTASection />
+          </ScrollReveal>
         </div>
       </main>
+
+      <OnboardingDemo />
     </div>
   );
 };
