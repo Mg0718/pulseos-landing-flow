@@ -17,7 +17,7 @@ const EnhancedNavigation = ({ activeSection, onSectionChange }: NavigationProps)
     { id: 'hero', label: 'Overview' },
     { id: 'chaos', label: 'Technology' },
     { id: 'solution', label: 'Integrations' },
-    { id: 'modular', label: 'Resources' },
+    { id: 'modular', label: 'Modules' },
     { id: 'works', label: 'How It Works' },
     { id: 'innovation', label: 'Innovation' },
     { id: 'testimonials', label: 'Testimonials' },
@@ -60,8 +60,9 @@ const EnhancedNavigation = ({ activeSection, onSectionChange }: NavigationProps)
       animate={{
         y: 0,
         backdropFilter: isScrolled ? 'blur(20px) saturate(180%)' : 'blur(10px) saturate(120%)',
-        backgroundColor: isScrolled ? 'rgba(15, 15, 23, 0.9)' : 'rgba(15, 15, 23, 0.6)',
-        height: isScrolled ? 64 : 80
+        backgroundColor: isScrolled ? 'rgba(15, 15, 23, 0.95)' : 'rgba(15, 15, 23, 0.7)',
+        height: isScrolled ? 64 : 80,
+        borderBottom: isScrolled ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid transparent'
       }}
       transition={{ duration: 0.3, ease: 'easeInOut' }}
     >
@@ -96,7 +97,7 @@ const EnhancedNavigation = ({ activeSection, onSectionChange }: NavigationProps)
               onClick={() => handleNavClick(item.id)}
               onMouseEnter={() => setHoveredItem(item.id)}
               onMouseLeave={() => setHoveredItem(null)}
-              className={`relative px-3 py-2 rounded-lg transition-all duration-300 group text-sm ${
+              className={`relative px-4 py-2 rounded-lg transition-all duration-300 group text-sm font-medium ${
                 activeSection === item.id 
                   ? 'text-purple-300 bg-purple-500/20' 
                   : 'text-muted-foreground hover:text-foreground'
@@ -105,7 +106,7 @@ const EnhancedNavigation = ({ activeSection, onSectionChange }: NavigationProps)
               whileTap={{ scale: 0.95 }}
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
+              transition={{ delay: index * 0.05 }}
             >
               <span className="relative z-10">{item.label}</span>
               <AnimatePresence>
@@ -140,8 +141,14 @@ const EnhancedNavigation = ({ activeSection, onSectionChange }: NavigationProps)
             Log in
           </Button>
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <Button className="relative overflow-hidden bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-700 hover:to-cyan-700 text-white border-0">
-              Get Started
+            <Button className="relative overflow-hidden bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-700 hover:to-cyan-700 text-white border-0 shadow-lg shadow-purple-500/25">
+              <span className="relative z-10">Get Started</span>
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent"
+                initial={{ x: '-100%' }}
+                whileHover={{ x: '100%' }}
+                transition={{ duration: 0.6 }}
+              />
             </Button>
           </motion.div>
         </div>
