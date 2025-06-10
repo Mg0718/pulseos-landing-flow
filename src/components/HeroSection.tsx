@@ -1,9 +1,25 @@
-import React from 'react';
+
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import InteractiveButton from '@/components/InteractiveButton';
-import { Rocket, BookOpen } from 'lucide-react';
+import { Rocket, BookOpen, ArrowRight } from 'lucide-react';
 
 const HeroSection = () => {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({
+        x: (e.clientX / window.innerWidth) * 100,
+        y: (e.clientY / window.innerHeight) * 100,
+      });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -54,14 +70,49 @@ const HeroSection = () => {
 
   return (
     <motion.section 
-      className="relative min-h-screen flex items-center justify-center text-center px-6"
+      className="relative min-h-screen flex items-center justify-center text-center px-6 overflow-hidden"
       initial="hidden"
       animate="visible"
       variants={containerVariants}
     >
-      <div className="max-w-4xl mx-auto space-y-8">
+      {/* Enhanced Mouse-Following Background */}
+      <motion.div
+        className="absolute inset-0 opacity-30"
+        style={{
+          background: `radial-gradient(600px circle at ${mousePosition.x}% ${mousePosition.y}%, rgba(139, 92, 246, 0.15), transparent 40%)`
+        }}
+        animate={{
+          background: `radial-gradient(600px circle at ${mousePosition.x}% ${mousePosition.y}%, rgba(139, 92, 246, 0.15), transparent 40%)`
+        }}
+        transition={{ type: "spring", stiffness: 50, damping: 30 }}
+      />
+
+      {/* Floating Orbs */}
+      {Array.from({ length: 5 }).map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute w-32 h-32 rounded-full opacity-20 blur-xl"
+          style={{
+            background: `linear-gradient(45deg, #8b5cf6, #06b6d4)`,
+            left: `${20 + i * 20}%`,
+            top: `${30 + i * 10}%`,
+          }}
+          animate={{
+            x: [0, 30, 0],
+            y: [0, -20, 0],
+            scale: [1, 1.1, 1],
+          }}
+          transition={{
+            duration: 8 + i * 2,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      ))}
+
+      <div className="max-w-5xl mx-auto space-y-8 relative z-10">
         <motion.h1 
-          className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-white via-purple-200 to-cyan-200 bg-clip-text text-transparent leading-tight"
+          className="text-5xl md:text-7xl lg:text-8xl font-bold bg-gradient-to-r from-white via-purple-200 to-cyan-200 bg-clip-text text-transparent leading-tight"
           variants={itemVariants}
         >
           One OS to Run Your Business. All of It.
@@ -75,7 +126,7 @@ const HeroSection = () => {
         </motion.p>
 
         <motion.div 
-          className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8"
+          className="flex flex-col sm:flex-row gap-6 justify-center items-center pt-8"
           variants={itemVariants}
         >
           <motion.div
@@ -100,6 +151,32 @@ const HeroSection = () => {
               See How It Works
             </InteractiveButton>
           </motion.div>
+        </motion.div>
+
+        {/* Quick Navigation to Modules */}
+        <motion.div
+          className="flex flex-wrap justify-center gap-4 pt-12"
+          variants={itemVariants}
+        >
+          {[
+            { name: "Manage Employees", path: "/managing-employees" },
+            { name: "Innovation Hub", path: "/innovation-hub" },
+            { name: "PulsePay", path: "/pulsepay" },
+            { name: "PulseFlow", path: "/pulseflow" }
+          ].map((module, index) => (
+            <Link key={index} to={module.path}>
+              <motion.div
+                className="group flex items-center gap-2 px-4 py-2 bg-card/20 border border-border/30 rounded-full hover:bg-card/40 transition-all duration-300"
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">
+                  {module.name}
+                </span>
+                <ArrowRight className="w-4 h-4 text-purple-400 group-hover:translate-x-1 transition-transform" />
+              </motion.div>
+            </Link>
+          ))}
         </motion.div>
       </div>
     </motion.section>
